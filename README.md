@@ -1,9 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
+# PDF preview and edit research
 In the project directory, you can run:
 
 ### `npm start`
@@ -11,60 +6,46 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Foundations for research:
+- [Mozilla PDF.js](https://mozilla.github.io/pdf.js/)
+- [react-pdf](https://github.com/wojtekmaj/react-pdf/)
 
-### `npm test`
+## Encountered limitations
+### React-pdf
+Currently, in a couple of our projects we use a React-wrapped pdf viewer called React-pdf.
+After some investigation into its code base I found that react-pdf while "in-theory" is able to view annotations present in a file and has a support for annotations layer, none of my attempts have yielded any fruitful results.
+**No examples** or **documentation** have been found that would show how to view annotations in a pdf file using react-pdf.
+- **Pros**:
+    - Easy to use
+    - React-based
+    - Good for simple pdf viewing
+- **Cons**:
+    - No support for annotations
+    - No support for editing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Mozilla PDF.js
+Mozilla PDF.js is a powerful library that allows for a lot of customization and control over the pdf viewer, however at a cost of complexity and cognitive load.
+- **Pros**:
+    - Powerful
+    - Customizable
+    - Supports annotations
+    - Supports editing
+- **Cons**:
+    - Complex. Incredibly complex.
 
-### `npm run build`
+## Possible solutions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### React-pdf
+Theoretically, it is possible to make a fork of react-pdf and add support for annotations and editing. However, it's worth noting that at the time of creating this note
+the exact scope of required insight is unknown. It is possible that the scope of work is too large to be feasible since beside inherent pdf.js complexity react-pdf also introduces overhead
+of its own architecture and conventions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Mozilla PDF.js (this repository)
+As per the [library's documentation](https://mozilla.github.io/pdf.js/getting_started), it is possible to use already present "Viewer" layer that can be used to view pdf files.
+Maintainers of the library also encourage to use the "Viewer" as a starting point where one can modify the appearance and tweak certain behaviors(to which extent - again, no final conclusion)
+However, it is worth noting that the library is incredibly complex and requires a lot of time to understand and work with.
+This repository serves as a possible React wrapper for the PDF.js Viewer
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Remaining challenges
+While the Viewer demonstrates capability of annotating and editing pdf files, at the time of writing this note, the exact scope of retrofit work required to upload the modified pdf file to the desired location is unknown.
